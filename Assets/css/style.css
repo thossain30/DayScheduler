@@ -12,8 +12,16 @@ textarea {
   padding: 10px;
 }
 
+header {
+  border-bottom: #000000 solid 10px;
+}
+
 .description {
   white-space: pre-wrap;
+}
+
+.lead, .display-3 {
+  text-align: center;
 }
 
 .time-block {
