@@ -11,18 +11,13 @@ $(document).ready(
     // useful when saving the description in local storage?
 
     let dayJSobject = dayjs().format("dddd, MMMM D");
-    let day = dayjs().day();
-
-    $("#currentDay").text(dayJSobject + "th");
+    let hour = dayjs().hour();
 
     $(".saveBtn").on("click", function() {
       // grabs the text input box that is the sibling of the save button
       let description = $(this).siblings(".description");
       // grabs the id of the time block that is the parent of this button 
       let time = $(this).parent().attr("id");
-
-
-      console.log(dayJSobject);
 
       // Saves anything that we input in the text box to the parent ID of the save button
       localStorage.setItem(time, description);
@@ -33,6 +28,38 @@ $(document).ready(
     // attribute of each time-block be used to conditionally add or remove the
     // past, present, and future classes? How can Day.js be used to get the
     // current hour in 24-hour time?
+
+
+    // Selects all the time blocks
+    let timeBlocks = $(".px-5").children();
+
+    // For each time block...
+    timeBlocks.each(function() {
+      // Grabs the ID for the time block i.e. hour-9, hour-10
+      let blockID = this.id;
+      // Gets the hour int from the id i.e. 9 from hour-9, 10 from hour-10
+      let blockHour = blockID.match(/\d+/);
+
+      // Only applies to 1pm to 5pm and increments them by 12 so that they are accurate on a 24-hour format
+      if (blockHour < 9) {blockHour = parseInt(blockHour) + 12}
+      /* 
+        Compares the blockhour to the current hour (which is in 24 hour format)
+        And adds past present and future classes to the time block as necessary
+      */
+      if (blockHour > hour) {
+        $(this).addClass("future");
+        $(this).removeClass("present");
+        $(this).removeClass("past");
+      } else if (blockHour < hour) {
+        $(this).addClass("past");
+        $(this).removeClass("present");
+        $(this).removeClass("future");
+      } else {
+        $(this).addClass("present");
+        $(this).removeClass("future");
+        $(this).removeClass("past");
+      }
+    });
     
     //
     // TODO: Add code to get any user input that was saved in localStorage and set
@@ -41,6 +68,6 @@ $(document).ready(
     //
 
     // TODO: Add code to display the current date in the header of the page.
-
+    $("#currentDay").text(dayJSobject + "th");
   })
 )
