@@ -13,7 +13,7 @@ This application allows users to choose a time slot to enter a task. These tasks
 
 View the Site at https://thossain30.github.io/DayScheduler/
 
-![preview of website](assets/images/preview.png)
+![preview of website](./Assets/images/preview.png)
 
 ## License
 This project is licensed under MIT - see the [License](LICENSE) for more information.
